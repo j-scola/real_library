@@ -1,3 +1,3 @@
-import { runApp } from "./server";
+import { runAppMain } from './server';
 
-runApp();
+runAppMain();
