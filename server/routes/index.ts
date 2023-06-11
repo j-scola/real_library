@@ -1,1 +1,1 @@
-export * from './recordRouter';
+export * from './collectionRouter';

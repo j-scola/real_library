@@ -117,25 +117,13 @@ const loadDataToDb = async (db: sqlite3.Database) => {
   await readFromCsvAndLoadToDb(loaderCb);
 };
 
-export const createDatabase = () => {
-  const sqlite = sqlite3.verbose();
-  const db = new sqlite.Database(DATABASE_ADDRESS, err => {
-    if (err) {
-      handleErr(err);
-    } else {
-      console.log('DataBase Created');
-    }
-  });
-  return db;
-};
-
 export const initializeDb = () => {
   const db = new sqlite3.Database(
     DATABASE_ADDRESS,
     sqlite3.OPEN_READWRITE,
     err => {
       if (err) {
-        createDatabase();
+        handleErr(err);
       } else {
         console.log('DataBase Connected');
       }

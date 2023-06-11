@@ -1,6 +1,6 @@
 import express, { Express, Request, Response } from 'express';
 import dotenv from 'dotenv';
-import { recordRouter } from './routes';
+import { addCollectionRoutes } from './routes';
 
 export const runAppMain = () => {
   dotenv.config();
@@ -9,12 +9,15 @@ export const runAppMain = () => {
 
   const port = process.env.PORT;
 
-  app.get('/', (req, res) => {
+  app.use(express.json());
+  app.use(express.urlencoded());
+
+  app.get('/', (req: Request, res: Response) => {
     console.log('request hit');
     res.send('<h1>hello, world!</h1>');
   });
 
-  app.use('/record', recordRouter);
+  addCollectionRoutes(app);
 
   app.listen(port, () => {
     console.log(`[server]: Server is running at http://localhost:${port}`);

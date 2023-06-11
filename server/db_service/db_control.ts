@@ -1,26 +1,49 @@
-import { initializeDb } from './db_init';
-import sqlite3 from 'sqlite3';
+import { LibraryCollectionModel } from './db_model';
+import {
+  CollectionItem,
+  CreateCollectionItem,
+  RequestCallbackAll,
+  RequestCallbackRun,
+} from '../types';
 
 export class LibraryController {
-  db: sqlite3.Database;
+  model: LibraryCollectionModel;
   constructor() {
-    this.db = initializeDb();
+    this.model = new LibraryCollectionModel();
   }
 
-  async addToCollection() {
-    console.log('lib controller - add to collection');
+  async addToCollection(item: CreateCollectionItem, cb: RequestCallbackRun) {
+    if (
+      !item.title ||
+      !item.author ||
+      !item.genre ||
+      !item.height ||
+      !item.publisher
+    ) {
+      cb(
+        new Error(
+          'Error - incomplete collection item data, ensure that title, author, genre, height, and publisher are present'
+        )
+      );
+    } else {
+      this.model.add(item, cb);
+    }
   }
 
-  async getCollection() {
-    console.log('lib controller - get collection');
+  async getCollection(cb: RequestCallbackAll<CollectionItem>) {
+    this.model.getCollection(cb);
   }
 
-  async searchFromCollection() {
-    console.log('lib controller - search');
+  searchFromCollection(
+    item: Partial<CollectionItem>,
+    callback: RequestCallbackAll<CollectionItem>
+  ) {
+    this.model.partialSearch(item, callback);
   }
 
-  async updateCollection() {
+  async updateCollection(cb: RequestCallbackRun) {
     console.log('lib controller - update collection');
+    cb(new Error('Error - update collection item not available'));
   }
 
   async checkoutBook() {
