@@ -95,8 +95,8 @@ const loadDataToDb = async (db: sqlite3.Database) => {
 
       CREATE TABLE IF NOT EXISTS checkouts(
           id INTEGER PRIMARY KEY AUTOINCREMENT,
-          user_id INT NOT NULL,
-          book INT NOT NULL,
+          member_id INT NOT NULL,
+          collection_id INT NOT NULL,
           created_at DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
           due_date DATETIME NOT NULL
       );
