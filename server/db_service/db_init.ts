@@ -98,7 +98,9 @@ const loadDataToDb = async (db: sqlite3.Database) => {
           member_id INT NOT NULL,
           collection_id INT NOT NULL,
           created_at DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
-          due_date DATETIME NOT NULL
+          due_date DATETIME NOT NULL,
+          returned INT NOT NULL,
+          returned_date DATETIME
       );
       `,
       err => {

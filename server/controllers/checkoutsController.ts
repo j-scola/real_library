@@ -1,5 +1,12 @@
 import { CheckoutModel, ModelsService } from '../models';
-import { BaseCheckout, CreateNewCheckout, RequestCallbackRun } from '../types';
+import {
+  BaseCheckout,
+  CreateNewCheckout,
+  ExistingCheckout,
+  MemberId,
+  RequestCallbackAll,
+  RequestCallbackRun,
+} from '../types';
 
 export class CheckoutsController {
   model: CheckoutModel;
@@ -22,5 +29,12 @@ export class CheckoutsController {
       due_date: due_date.toISOString(),
     };
     this.model.add(checkout, cb);
+  }
+
+  getCheckoutsByMemberId(
+    member_id: MemberId,
+    cb: RequestCallbackAll<ExistingCheckout>
+  ) {
+    this.model.getCheckoutsByMemberId(member_id, cb);
   }
 }
